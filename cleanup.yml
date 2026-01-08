@@ -1,6 +1,5 @@
 name: Discord Reaction Cleanup
 
-# 自動実行設定（cron）と手動実行設定
 on:
   schedule:
     - cron: "0 * * * *"   # 毎時0分に実行（UTC）
@@ -10,19 +9,14 @@ jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
-      # リポジトリのコードを取得
       - uses: actions/checkout@v4
 
-      # Node.js 環境を準備
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 依存関係をインストール
       - run: npm install
 
-      # Botスクリプトを実行
       - run: node index.js
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
